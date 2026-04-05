@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Supply Chain Transparency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafe;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .supply-chain-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .supply-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .supply-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .card-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+        }
+
+        .farm-icon { color: #27ae60; }
+        .testing-icon { color: #9b59b6; }
+        .tracking-icon { color: #3498db; }
+
+        .card-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .card-description {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "•";
+            color: #27ae60;
+            font-size: 1.2em;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Journey Story Section */
+        .journey-section {
+            margin: 60px 0;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .journey-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .journey-header h2 {
+            font-size: 2.4em;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .journey-header p {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .journey-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-item.no-line {
+            margin-bottom: 40px;
+            margin-top: 10px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 280px;
+            top: 40px;
+            bottom: -60px;
+            width: 3px;
+            background: linear-gradient(180deg, #27ae60, #2ecc71);
+            z-index: 1;
+        }
+
+        .timeline-item.no-line::before {
+            display: none !important;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: #f8fafe;
+            border-radius: 16px;
+            padding: 30px;
+            margin-right: 40px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .timeline-photo {
+            width: 280px;
+            height: 200px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 15px;
+            color: white;
+        }
+
+        .timestamp {
+            font-size: 0.85em;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .location {
+            font-size: 0.8em;
+            opacity: 0.8;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .story-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .story-text {
+            color: #5a6c7d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .story-highlights {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .highlight-tag {
+            background: #e8f5e8;
+            color: #27ae60;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .map-container {
+            width: 100%;
+            margin: 40px 0;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e9ecef;
+        }
+
+        .map-header {
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #f8fafe, #ffffff);
+            border-bottom: 1px solid #e9ecef;
+            text-align: center;
+        }
+
+        .map-header h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .map-header p {
+            color: #7f8c8d;
+            font-size: 1em;
+        }
+
+        .journey-map {
+            padding: 20px;
+            background: #f8fafe;
+        }
+
+        .route-map {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #e3f2fd, #f0f7ff);
+            border-radius: 12px;
+            border: 1px solid #e1ecf4;
+        }
+
+        .journey-path {
+            animation: dashMove 3s linear infinite;
+        }
+
+        @keyframes dashMove {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 24; }
+        }
+
+        .location-marker {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .location-marker:hover {
+            transform: scale(1.1);
+        }
+
+        .location-marker circle {
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+        }
+
+        .location-marker rect {
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .google-map-embed {
+            height: 300px;
+            background: #f1f3f4;
+        }
+
+        .google-map-embed iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Blockchain Benefits - Single Line */
+        .blockchain-footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .blockchain-footer h3 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .blockchain-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .blockchain-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1em;
+            opacity: 0.95;
+        }
+
+        .blockchain-feature svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Tracking Sections Styles */
+        .tracking-sections {
+            margin: 60px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .tracking-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+        }
+
+        .tracking-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f1f3f4;
+        }
+
+        .tracking-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+
+        .farm-bg { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .testing-bg { background: linear-gradient(135deg, #9b59b6, #bb6bd9); }
+        .tracking-bg { background: linear-gradient(135deg, #3498db, #5dade2); }
+
+        .tracking-title {
+            font-size: 1.6em;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .tracking-subtitle {
+            color: #7f8c8d;
+            font-size: 1em;
+        }
+
+        .tracking-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .info-item label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-item value {
+            font-size: 1em;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .verification-badges {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .badge.verified {
+            background: #e8f5e8;
+            color: #27ae60;
+        }
+
+        .blockchain-hash {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #3498db;
+        }
+
+        .blockchain-hash code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            word-break: break-all;
+        }
+
+        .test-results {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .test-category h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .test-item.passed {
+            background: #e8f5e8;
+            border-left: 3px solid #27ae60;
+        }
+
+        .tracking-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-box {
+            background: #f8fafe;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .feature-box h4 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .qr-details {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .qr-code-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .qr-placeholder {
+            background: #f1f3f4;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .qr-info {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #5a6c7d;
+        }
+
+        .access-stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .verification-summary {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .verification-summary h4 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .summary-item strong {
+            color: #27ae60;
+            font-size: 1em;
+        }
+
+        .summary-item span {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .journey-section {
+                padding: 30px 20px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                align-items: center;
+            }
+
+              
+
+            .timeline-content {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .timeline-photo {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .blockchain-features {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .tracking-sections {
+                gap: 30px;
+            }
+
+            .tracking-card {
+                padding: 25px 20px;
+            }
+
+            .tracking-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .tracking-icon {
+                margin-right: 0;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tracking-features {
+                grid-template-columns: 1fr;
+            }
+
+            .qr-details {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .access-stats {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .verification-badges {
+                justify-content: center;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Complete Supply Chain Transparency</h1>
+            <p>Every step of your Tulsi's journey is recorded on the blockchain</p>
+        </div>
+
+        <!-- Supply Chain Cards -->
+        <div class="supply-chain-section">
+            <div class="supply-card">
+                <div class="card-header">
+                    <svg class="card-icon farm-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1V3H9V1L3 7V9H21Z"/>
+                    </svg>
+                    <h3 class="card-title">Farm Registration</h3>
+                </div>
+                <p class="card-description">
+                    Farmers register their details and log harvest batches with timestamps and images
+                </p>
+                <ul class="feature-list">
+                    <li>Immutable farmer identity verification</li>
+                    <li>Harvest batch tracking with QR codes</li>
+                    <li>IPFS storage for harvest images</li>
+                    <li>Transparent weight and date logging</li>
+                </ul>
+            </div>
+
+            <div class="supply-card">
+                <div class="card-header">
+                    <svg class="card-icon testing-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9,2V8H7V10A1,1 0 0,0 8,11H16A1,1 0 0,0 17,10V8H15V2H9M11,4H13V8H11V4M8,12V22H5L6,14H4L5,12H8M16,12L17,14H15L16,22H19V12H16Z"/>
+                    </svg>
+                    <h3 class="card-title">Quality Testing</h3>
+                </div>
+                <p class="card-description">
+                    Independent labs test and certify quality parameters on the blockchain
+                </p>
+                <ul class="feature-list">
+                    <li>Comprehensive purity testing</li>
+                    <li>Contaminant and pesticide analysis</li>
+                    <li>Digital certificate storage on IPFS</li>
+                    <li>Tamper-proof test results</li>
+                </ul>
+            </div>
+
+            <div class="supply-card">
+                <div class="card-header">
+                    <svg class="card-icon tracking-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.5,14C20.5,14 21.87,16.76 21.87,18.5C21.87,20.24 20.5,23 15.5,23C10.5,23 9.13,20.24 9.13,18.5C9.13,16.76 10.5,14 15.5,14M15.5,9A4,4 0 0,1 19.5,13A4,4 0 0,1 15.5,17A4,4 0 0,1 11.5,13A4,4 0 0,1 15.5,9M15.5,1C18,1 20,3 20,5.5C20,8 18,10 15.5,10C13,10 11,8 11,5.5C11,3 13,1 15.5,1Z"/>
+                    </svg>
+                    <h3 class="card-title">Consumer Tracking</h3>
+                </div>
+                <p class="card-description">
+                    Consumers can trace their Tulsi's complete journey using QR codes
+                </p>
+                <ul class="feature-list">
+                    <li>QR code scanning for instant tracking</li>
+                    <li>Complete supply chain timeline</li>
+                    <li>Farmer and lab information access</li>
+                    <li>Quality certification verification</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Journey Story Section -->
+        <div class="journey-section">
+            <div class="journey-header">
+                <h2>🌿 Your Tulsi's Sacred Journey</h2>
+                <p>Follow the complete story from Ramesh's organic farm in Vrindavan to your cup, with real photos and precise geolocation data</p>
+            </div>
+
+            <!-- Interactive Journey Map -->
+            <div class="map-container">
+                <div class="map-header">
+                    <h3>🗺️ Tulsi's Complete Journey Route</h3>
+                    <p>Track the 1,247 km journey from Vrindavan farm to your doorstep</p>
+                </div>
+                
+                <div class="journey-map">
+                    <svg viewBox="0 0 800 400" class="route-map">
+                        <!-- Map Background -->
+                        <rect width="800" height="400" fill="#f0f7ff" stroke="#e1ecf4" stroke-width="1"/>
+                        
+                        <!-- Highlighted Journey Route -->
+                        <path d="M150,200 Q300,150 450,180 Q600,160 700,200" 
+                              fill="none" 
+                              stroke="#27ae60" 
+                              stroke-width="4" 
+                              stroke-dasharray="8,4"
+                              class="journey-path"/>
+                        
+                        <!-- Location Markers -->
+                        <!-- Vrindavan Farm -->
+                        <g class="location-marker farm-marker">
+                            <circle cx="150" cy="200" r="20" fill="#27ae60" stroke="white" stroke-width="3"/>
+                            <text x="150" y="206" text-anchor="middle" fill="white" font-size="16" font-weight="bold">🌱</text>
+                            <rect x="80" y="230" width="140" height="50" rx="8" fill="white" stroke="#27ae60" stroke-width="2"/>
+                            <text x="150" y="248" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Vrindavan Farm</text>
+                            <text x="150" y="262" text-anchor="middle" font-size="10" fill="#7f8c8d">March 15 - Harvest</text>
+                            <text x="150" y="274" text-anchor="middle" font-size="10" fill="#7f8c8d">27.5774°N, 77.7007°E</text>
+                        </g>
+                        
+                        <!-- Testing Lab -->
+                        <g class="location-marker lab-marker">
+                            <circle cx="320" cy="160" r="18" fill="#9b59b6" stroke="white" stroke-width="3"/>
+                            <text x="320" y="166" text-anchor="middle" fill="white" font-size="14" font-weight="bold">🔬</text>
+                            <rect x="250" y="100" width="140" height="50" rx="8" fill="white" stroke="#9b59b6" stroke-width="2"/>
+                            <text x="320" y="118" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">AyurLab Delhi</text>
+                            <text x="320" y="132" text-anchor="middle" font-size="10" fill="#7f8c8d">March 18 - Testing</text>
+                            <text x="320" y="144" text-anchor="middle" font-size="10" fill="#7f8c8d">28.6139°N, 77.2088°E</text>
+                        </g>
+                        
+                        <!-- Processing Facility -->
+                        <g class="location-marker processing-marker">
+                            <circle cx="500" cy="170" r="18" fill="#f39c12" stroke="white" stroke-width="3"/>
+                            <text x="500" y="176" text-anchor="middle" fill="white" font-size="14" font-weight="bold">⚙️</text>
+                            <rect x="430" y="110" width="140" height="50" rx="8" fill="white" stroke="#f39c12" stroke-width="2"/>
+                            <text x="500" y="128" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Haridwar Facility</text>
+                            <text x="500" y="142" text-anchor="middle" font-size="10" fill="#7f8c8d">March 22 - Processing</text>
+                            <text x="500" y="154" text-anchor="middle" font-size="10" fill="#7f8c8d">29.9457°N, 78.1642°E</text>
+                        </g>
+                        
+                        <!-- Final Destination -->
+                        <g class="location-marker destination-marker">
+                            <circle cx="700" cy="200" r="20" fill="#3498db" stroke="white" stroke-width="3"/>
+                            <text x="700" y="206" text-anchor="middle" fill="white" font-size="16" font-weight="bold">🏠</text>
+                            <rect x="630" y="230" width="140" height="50" rx="8" fill="white" stroke="#3498db" stroke-width="2"/>
+                            <text x="700" y="248" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Your Location</text>
+                            <text x="700" y="262" text-anchor="middle" font-size="10" fill="#7f8c8d">March 28 - Delivered</text>
+                            <text x="700" y="274" text-anchor="middle" font-size="10" fill="#7f8c8d">1,247 km Journey</text>
+                        </g>
+                        
+                        <!-- Distance Indicators -->
+                        <g class="distance-labels">
+                            <text x="230" y="140" text-anchor="middle" font-size="11" fill="#27ae60" font-weight="500">387 km</text>
+                            <text x="410" y="130" text-anchor="middle" font-size="11" fill="#27ae60" font-weight="500">295 km</text>
+                            <text x="600" y="140" text-anchor="middle" font-size="11" fill="#27ae60" font-weight="500">565 km</text>
+                        </g>
+                        
+                        <!-- Legend -->
+                        <g class="map-legend" transform="translate(20, 20)">
+                            <rect width="180" height="120" fill="white" stroke="#e1ecf4" stroke-width="1" rx="8"/>
+                            <text x="10" y="20" font-size="12" font-weight="600" fill="#2c3e50">Journey Legend</text>
+                            
+                            <circle cx="20" cy="40" r="6" fill="#27ae60"/>
+                            <text x="35" y="45" font-size="10" fill="#2c3e50">Farm Origin</text>
+                            
+                            <circle cx="20" cy="60" r="6" fill="#9b59b6"/>
+                            <text x="35" y="65" font-size="10" fill="#2c3e50">Quality Lab</text>
+                            
+                            <circle cx="20" cy="80" r="6" fill="#f39c12"/>
+                            <text x="35" y="85" font-size="10" fill="#2c3e50">Processing</text>
+                            
+                            <circle cx="20" cy="100" r="6" fill="#3498db"/>
+                            <text x="35" y="105" font-size="10" fill="#2c3e50">Destination</text>
+                        </g>
+                        
+                        <!-- Journey Stats -->
+                        <g class="journey-stats" transform="translate(580, 20)">
+                            <rect width="200" height="100" fill="rgba(255,255,255,0.95)" stroke="#e1ecf4" stroke-width="1" rx="8"/>
+                            <text x="10" y="20" font-size="12" font-weight="600" fill="#2c3e50">Journey Statistics</text>
+                            <text x="10" y="40" font-size="10" fill="#7f8c8d">Total Distance: 1,247 km</text>
+                            <text x="10" y="55" font-size="10" fill="#7f8c8d">Transit Time: 13 days</text>
+                            <text x="10" y="70" font-size="10" fill="#7f8c8d">CO₂ Offset: 5.2 kg</text>
+                            <text x="10" y="85" font-size="10" fill="#7f8c8d">Temperature: Controlled</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <!-- Interactive Google Map Embed -->
+                <div class="google-map-embed">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d1811089.4908728441!2d76.5!3d28.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x39736956c16a4c21%3A0x5f0c5b3e8b8e7b5f!2sVrindavan%2C%20Uttar%20Pradesh!3m2!1d27.5774!2d77.7007!4m5!1s0x390cfd5b347eb62d%3A0x52c2b7494e204dce!2sNew%20Delhi%2C%20Delhi!3m2!1d28.6139!2d77.2088!5e0!3m2!1sen!2sin!4v1635789012345!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="300" 
+                        style="border:0; border-radius: 12px;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="journey-timeline">
+                <!-- Harvest -->
+                <div class="timeline-item no-line">
+                    <div class="timeline-content">
+                        <div class="story-title">🌱 Dawn Harvest at Sacred Vrindavan</div>
+                        <p class="story-text">
+                            At 5:47 AM, as the first rays of sunlight kissed the holy land of Vrindavan, farmer Ramesh Kumar began the sacred ritual of Tulsi harvesting. Following his grandmother's teachings, he carefully selected only the most vibrant leaves, ensuring each plant's spiritual energy remained intact.
+                        </p>
+                        <p class="story-text">
+                            "Today's harvest feels blessed," Ramesh whispers as he fills his traditional bamboo baskets. The morning dew on each leaf carries the essence of centuries-old cultivation wisdom.
+                        </p>
+                        <div class="story-highlights">
+                            <span class="highlight-tag">🌅 Dawn Harvest</span>
+                            <span class="highlight-tag">✋ Hand-Picked</span>
+                            <span class="highlight-tag">🙏 Sacred Ritual</span>
+                            <span class="highlight-tag">♻️ Organic</span>
+                        </div>
+                    </div>
+                    <div class="timeline-photo">
+                        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop&auto=format" alt="Tulsi leaves being hand-harvested at dawn" />
+                        <div class="photo-overlay">
+                            <div class="timestamp">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M16.2 16.2L11 13V7H12.5V12.2L17 14.7L16.2 16.2Z"/>
+                                </svg>
+                                March 15, 2024 - 5:47 AM
+                            </div>
+                            <div class="location">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C15.31 2 18 4.66 18 7.95C18 12.41 12 22 12 22S6 12.41 6 7.95C6 4.66 8.69 2 12 2M12 6C10.9 6 10 6.9 10 8S10.9 10 12 10 14 9.1 14 8 13.1 6 12 6Z"/>
+                                </svg>
+                                27.5774°N, 77.7007°E - Vrindavan, UP
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lab Testing -->
+                <div class="timeline-item no-line">
+                    <div class="timeline-content">
+                        <div class="story-title">🔬 Advanced Purity Analysis</div>
+                        <p class="story-text">
+                            At AyurLab's state-of-the-art facility in New Delhi, Dr. Priya Sharma leads her team in comprehensive testing. Using cutting-edge chromatography, they analyze your Tulsi for over 200 potential contaminants.
+                        </p>
+                        <p class="story-text">
+                            "This batch shows exceptional purity levels," notes Dr. Sharma as the results display zero pesticide residues and a remarkable 2.3% essential oil content - far exceeding industry standards.
+                        </p>
+                        <div class="story-highlights">
+                            <span class="highlight-tag">✅ Zero Pesticides</span>
+                            <span class="highlight-tag">🔬 200+ Tests</span>
+                            <span class="highlight-tag">📊 2.3% Essential Oils</span>
+                            <span class="highlight-tag">🏆 Premium Grade</span>
+                        </div>
+                    </div>
+                    <div class="timeline-photo">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=300&fit=crop&auto=format" alt="Laboratory scientist testing herbal samples" />
+                        <div class="photo-overlay">
+                            <div class="timestamp">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M16.2 16.2L11 13V7H12.5V12.2L17 14.7L16.2 16.2Z"/>
+                                </svg>
+                                March 18, 2024 - 2:15 PM
+                            </div>
+                            <div class="location">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C15.31 2 18 4.66 18 7.95C18 12.41 12 22 12 22S6 12.41 6 7.95C6 4.66 8.69 2 12 2M12 6C10.9 6 10 6.9 10 8S10.9 10 12 10 14 9.1 14 8 13.1 6 12 6Z"/>
+                                </svg>
+                                28.6139°N, 77.2088°E - New Delhi
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processing -->
+                <div class="timeline-item no-line">
+                    <div class="timeline-content">
+                        <div class="story-title">☀️ Solar-Powered Processing</div>
+                        <p class="story-text">
+                            At our eco-facility in Haridwar, master processor Arjun Patel uses solar energy to gently dry your Tulsi. The ancient Ayurvedic drying techniques preserve every bit of the herb's healing properties.
+                        </p>
+                        <p class="story-text">
+                            "We saved 47 liters of water today using our innovative process," smiles Arjun as he carefully monitors the temperature. Each leaf maintains its natural green color and aromatic compounds.
+                        </p>
+                        <div class="story-highlights">
+                            <span class="highlight-tag">☀️ Solar Powered</span>
+                            <span class="highlight-tag">💧 47L Water Saved</span>
+                            <span class="highlight-tag">🌿 Natural Color</span>
+                            <span class="highlight-tag">📦 Eco Packaging</span>
+                        </div>
+                    </div>
+                    <div class="timeline-photo">
+                        <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=400&h=300&fit=crop&auto=format" alt="Solar-powered herb processing facility with drying herbs" />
+                        <div class="photo-overlay">
+                            <div class="timestamp">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M16.2 16.2L11 13V7H12.5V12.2L17 14.7L16.2 16.2Z"/>
+                                </svg>
+                                March 22, 2024 - 11:30 AM
+                            </div>
+                            <div class="location">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C15.31 2 18 4.66 18 7.95C18 12.41 12 22 12 22S6 12.41 6 7.95C6 4.66 8.69 2 12 2M12 6C10.9 6 10 6.9 10 8S10.9 10 12 10 14 9.1 14 8 13.1 6 12 6Z"/>
+                                </svg>
+                                29.9457°N, 78.1642°E - Haridwar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Delivery -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="story-title">🚛 Carbon-Neutral Journey to You</div>
+                        <p class="story-text">
+                            Your precious Tulsi traveled 1,247 km in temperature-controlled vehicles powered by clean energy. Driver Suresh ensures every package maintains optimal freshness during the journey.
+                        </p>
+                        <p class="story-text">
+                            "This delivery offset 5.2kg of CO₂ through our tree-planting program," shares logistics coordinator Maya. Your Tulsi arrives with its healing powers and environmental consciousness intact.
+                        </p>
+                        <div class="story-highlights">
+                            <span class="highlight-tag">🌍 Carbon Neutral</span>
+                            <span class="highlight-tag">❄️ Temperature Control</span>
+                            <span class="highlight-tag">🌳 5.2kg CO₂ Offset</span>
+                            <span class="highlight-tag">📍 1,247 km Tracked</span>
+                        </div>
+                    </div>
+                    <div class="timeline-photo">
+                        <img src="https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=400&h=300&fit=crop&auto=format" alt="Eco-friendly delivery truck with temperature control systems" />
+                        <div class="photo-overlay">
+                            <div class="timestamp">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M16.2 16.2L11 13V7H12.5V12.2L17 14.7L16.2 16.2Z"/>
+                                </svg>
+                                March 28, 2024 - 9:45 AM
+                            </div>
+                            <div class="location">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C15.31 2 18 4.66 18 7.95C18 12.41 12 22 12 22S6 12.41 6 7.95C6 4.66 8.69 2 12 2M12 6C10.9 6 10 6.9 10 8S10.9 10 12 10 14 9.1 14 8 13.1 6 12 6Z"/>
+                                </svg>
+                                Multiple Locations - En Route
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Tracking Sections -->
+        <div class="tracking-sections">
+            <!-- Farm Registration Details -->
+            <div class="tracking-card">
+                <div class="tracking-header">
+                    <div class="tracking-icon farm-bg">
+                        <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+                            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1V3H9V1L3 7V9H21Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="tracking-title">🌱 Farm Registration Details</h3>
+                        <p class="tracking-subtitle">Verified farmer identity and harvest documentation</p>
+                    </div>
+                </div>
+                
+                <div class="tracking-content">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Farmer Identity</label>
+                            <value>Ramesh Kumar (ID: VRN-FK-2024-847)</value>
+                        </div>
+                        <div class="info-item">
+                            <label>Farm Certification</label>
+                            <value>Organic India Certified - Valid till Dec 2025</value>
+                        </div>
+                        <div class="info-item">
+                            <label>Land Survey Number</label>
+                            <value>Plot 247/3B, Village Vrindavan, Mathura</value>
+                        </div>
+                        <div class="info-item">
+                            <label>Harvest Batch ID</label>
+                            <value>TULSI-VRN-MAR24-0315-B7</value>
+                        </div>
+                        <div class="info-item">
+                            <label>Harvest Weight</label>
+                            <value>47.3 kg (Fresh) → 12.8 kg (Dried)</value>
+                        </div>
+                        <div class="info-item">
+                            <label>QR Code Generated</label>
+                            <value>March 15, 2024 at 6:23 AM IST</value>
+                        </div>
+                    </div>
+                    
+                    <div class="verification-badges">
+                        <span class="badge verified">✅ Identity Verified</span>
+                        <span class="badge verified">✅ IPFS Images Stored</span>
+                        <span class="badge verified">✅ Blockchain Recorded</span>
+                        <span class="badge verified">✅ GPS Coordinates</span>
+                    </div>
+                    
+                    <div class="blockchain-hash">
+                        <strong>Blockchain Transaction:</strong> 
+                        <code>0x7f8b2c9e4a1d5f9b8c3e7a2d6f1b9e4c8a7d2f5e9b1c6a4d8f2e7b3c9a5d1f8e6</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quality Testing Details -->
+            <div class="tracking-card">
+                <div class="tracking-header">
+                    <div class="tracking-icon testing-bg">
+                        <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+                            <path d="M9,2V8H7V10A1,1 0 0,0 8,11H16A1,1 0 0,0 17,10V8H15V2H9M11,4H13V8H11V4M8,12V22H5L6,14H4L5,12H8M16,12L17,14H15L16,22H19V12H16Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="tracking-title">🔬 Quality Testing Certification</h3>
+                        <p class="tracking-subtitle">Comprehensive lab analysis and safety verification</p>
+                    </div>
+                </div>
+                
+                <div class="tracking-content">
+                    <div class="test-results">
+                        <div class="test-category">
+                            <h4>🧪 Chemical Analysis</h4>
+                            <div class="test-grid">
+                                <div class="test-item passed">
+                                    <span>Heavy Metals</span>
+                                    <span>PASSED ✅</span>
+                                </div>
+                                <div class="test-item passed">
+                                    <span>Pesticide Residues</span>
+                                    <span>ZERO DETECTED ✅</span>
+                                </div>
+                                <div class="test-item passed">
+                                    <span>Essential Oil Content</span>
+                                    <span>2.3% (Excellent) ✅</span>
+                                </div>
+                                <div class="test-item passed">
+                                    <span>Moisture Content</span>
+                                    <span>8.7% (Optimal) ✅</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="test-category">
+                            <h4>🦠 Microbial Testing</h4>
+                            <div class="test-grid">
+                                <div class="test-item passed">
+                                    <span>E. coli</span>
+                                    <span>NEGATIVE ✅</span>
+                                </div>
+                                <div class="test-item passed">
+                                    <span>Salmonella</span>
+                                    <span>NEGATIVE ✅</span>
+                                </div>
+                                <div class="test-item passed">
+                                    <span>Total Plate Count</span>
+                                    <span>Within Limits ✅</span>
+                                </div>
+                                <div class="test-item passed">
+                                    <span>Aflatoxins</span>
+                                    <span>NOT DETECTED ✅</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Testing Laboratory</label>
+                            <value>AyurLab Certification Center, New Delhi</value>
+                        </div>
+                        <div class="info-item">
+                            <label>Lab Accreditation</label>
+                            <value>ISO 17025:2017 | NABL Accredited</value>
+                        </div>
+                        <div class="info-item">
+                            <label>Test Report ID</label>
+                            <value>ALC-2024-3847-TULSI-VRN</value>
+                        </div>
+                        <div class="info-item">
+                            <label>Testing Date</label>
+                            <value>March 18, 2024 | Report Generated: March 20, 2024</value>
+                        </div>
+                    </div>
+                    
+                    <div class="blockchain-hash">
+                        <strong>Digital Certificate Hash:</strong> 
+                        <code>QmX7t9fR2vB8wE4kN1pL6uM3jH5cZ9dY1oS8bA6mR4nT7x</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consumer Tracking Details -->
+            <div class="tracking-card">
+                <div class="tracking-header">
+                    <div class="tracking-icon tracking-bg">
+                        <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+                            <path d="M15.5,14C20.5,14 21.87,16.76 21.87,18.5C21.87,20.24 20.5,23 15.5,23C10.5,23 9.13,20.24 9.13,18.5C9.13,16.76 10.5,14 15.5,14M15.5,9A4,4 0 0,1 19.5,13A4,4 0 0,1 15.5,17A4,4 0 0,1 11.5,13A4,4 0 0,1 15.5,9M15.5,1C18,1 20,3 20,5.5C20,8 18,10 15.5,10C13,10 11,8 11,5.5C11,3 13,1 15.5,1Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="tracking-title">📱 Consumer Tracking Access</h3>
+                        <p class="tracking-subtitle">Your complete supply chain visibility and verification</p>
+                    </div>
+                </div>
+                
+                <div class="tracking-content">
+                    <div class="tracking-features">
+                        <div class="feature-box">
+                            <h4>🔍 QR Code Information</h4>
+                            <div class="qr-details">
+                                <div class="qr-code-display">
+                                    <div class="qr-placeholder">
+                                        <svg viewBox="0 0 100 100" width="80" height="80">
+                                            <rect width="100" height="100" fill="#2c3e50"/>
+                                            <rect x="10" y="10" width="15" height="15" fill="white"/>
+                                            <rect x="75" y="10" width="15" height="15" fill="white"/>
+                                            <rect x="10" y="75" width="15" height="15" fill="white"/>
+                                            <rect x="40" y="40" width="20" height="20" fill="white"/>
+                                        </svg>
+                                    </div>
+                                    <div class="qr-info">
+                                        <strong>Scan ID:</strong> TUL-VRN-2024-3847<br>
+                                        <strong>Generated:</strong> March 15, 2024<br>
+                                        <strong>Total Scans:</strong> 1,247 times<br>
+                                        <strong>Last Scanned:</strong> 2 hours ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-box">
+                            <h4>🌍 Global Accessibility</h4>
+                            <div class="access-stats">
+                                <div class="stat-item">
+                                    <div class="stat-number">24/7</div>
+                                    <div class="stat-label">Available</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">195</div>
+                                    <div class="stat-label">Countries</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">0.3s</div>
+                                    <div class="stat-label">Load Time</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">99.9%</div>
+                                    <div class="stat-label">Uptime</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Tracking URL</label>
+                            <value>https://ayurchain.com/track/TUL-VRN-2024-3847</value>
+                        </div>
+                        <div class="info-item">
+                            <label>Mobile App</label>
+                            <value>AyurTrace - Available on iOS & Android</value>
+                        </div>
+                        <div class="info-item">
+                            <label>API Access</label>
+                            <value>Developer API v2.1 - Real-time data</value>
+                        </div>
+                        <div class="info-item">
+                            <label>Data Format</label>
+                            <value>JSON, XML, PDF Reports Available</value>
+                        </div>
+                    </div>
+                    
+                    <div class="verification-summary">
+                        <h4>🛡️ Verification Summary</h4>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <strong>✅ Farmer Verified</strong>
+                                <span>Identity confirmed via Aadhaar & digital signature</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>✅ Lab Certified</strong>
+                                <span>ISO 17025 accredited lab testing completed</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>✅ Blockchain Secured</strong>
+                                <span>All data immutably stored on AyurChain network</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>✅ Transport Tracked</strong>
+                                <span>GPS monitoring throughout entire journey</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blockchain Footer - Single Line -->
+        <div class="blockchain-footer">
+            <h3>🔒 Powered by Blockchain Technology</h3>
+            <div class="blockchain-features">
+                <div class="blockchain-feature">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z"/>
+                    </svg>
+                    <span>Immutable Records</span>
+                </div>
+                <div class="blockchain-feature">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56Z"/>
+                    </svg>
+                    <span>Global Access 24/7</span>
+                </div>
+                <div class="blockchain-feature">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                    </svg>
+                    <span>Instant Verification</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
